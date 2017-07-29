@@ -8,6 +8,7 @@
 var fs = require('fs');
 var express = require('express');
 var app = express();
+app.enable('trust proxy');
 
 if (!process.env.DISABLE_XORIGIN) {
   app.use(function(req, res, next) {
@@ -38,7 +39,7 @@ app.route('/')
     	var agent = req.headers['user-agent'].match(/\([^\(\)]+\)/)[0];
     	var soft = agent.slice(1,agent.length-1);
     	var lang = req.headers['accept-language'].split(",")[0];
-    	var data = {ipaddress: req.connection.remoteAddress, language: lang, software: soft};
+    	var data = {ipaddress: req.ip, language: lang, software: soft};
     	res.end(JSON.stringify(data));
     })
 
