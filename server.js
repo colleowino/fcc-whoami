@@ -38,7 +38,7 @@ app.route('/')
     	var agent = req.headers['user-agent'].match(/\([^\(\)]+\)/)[0];
     	var soft = agent.slice(1,agent.length-1);
     	var lang = req.headers['accept-language'].split(",")[0];
-    	var data = {ipaddress: req.ip, language: lang, software: soft};
+    	var data = {ipaddress: req.connection.remoteAddress, language: lang, software: soft};
     	res.end(JSON.stringify(data));
     })
 
