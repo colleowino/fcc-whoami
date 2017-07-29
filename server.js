@@ -39,7 +39,8 @@ app.route('/')
     	var agent = req.headers['user-agent'].match(/\([^\(\)]+\)/)[0];
     	var soft = agent.slice(1,agent.length-1);
     	var lang = req.headers['accept-language'].split(",")[0];
-    	var data = {ipaddress: req.ip, language: lang, software: soft};
+      var ip = req.headers["X-Forwarded-For"] || req.headers["x-forwarded-for"] || req.client.remoteAddress ;
+    	var data = {ipaddress: ip.split(",")[0], language: lang, software: soft};
     	res.end(JSON.stringify(data));
     })
 
